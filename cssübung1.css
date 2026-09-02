@@ -1,0 +1,15 @@
+body {
+  background-color: #ADD8E6;
+}
+
+p:first-of-type {
+  color: rgb(255, 0, 0);
+}
+
+p:nth-of-type(2) {
+  color: rgba(0, 128, 0, 0.5);
+}
+
+p:nth-of-type(3) {
+  color: #0000FF;
+}
