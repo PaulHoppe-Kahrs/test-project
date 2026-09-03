@@ -1,0 +1,66 @@
+#header {
+  font-weight:bold;
+  text-align:left;
+}
+
+.horizontal-line {
+
+  border: 5px solid rgb(0, 0, 0);
+  margin: 10px 0;
+  
+}
+
+.logo {
+  height:300px;
+  width:auto;
+}
+
+.name-field {
+  display: flex;
+  flex-direction: column;
+  gap: 50ex;
+  max-width: 400px;
+  width: 20%;
+  height: 3em;
+  padding: 12px 20px;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+}
+
+.email-field {
+  display: flex;
+  flex-direction: column;
+  gap: 50ex;
+  max-width: 400px;
+  width: 20%;
+  height: 3em;
+  padding: 12px 20px;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+}
+
+.feedback-field {
+  display:flex;
+  flex-direction: column;
+  gap: 50ex;
+  max-width: 400px;
+  width: 20%;
+  height: 10em;
+  padding: 12px 20px;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  resize: none;
+}
+
+.send-button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
