@@ -1,0 +1,43 @@
+#header {
+  color: coral;
+  font-weight: bold;
+  text-align: center;
+}
+
+.listheader {
+  color: grey;
+  font-size: 15px;
+  font-weight: bold;
+  text-align: center;
+}
+
+/* Ohne Punkt! Das trifft direkt dein <ul>-Tag im HTML */
+ul {
+  text-align: center;
+  padding: 0;
+  list-style-position: inside;
+}
+
+/* Descendant Combinator: Wählt die Links in deiner Liste */
+.listitem a {
+  color: rgb(0, 0, 0);
+  font-size: 12px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+/* Pseudoklasse :hover */
+.listitem a:hover {
+  color: red;
+  text-decoration: underline;
+}
+
+/* Body richtet jetzt alle Elemente (h1, h2, ul) waagerecht mittig aus */
+body {
+  background-color: #81a3caae;
+  font-family: sans-serif;
+  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
