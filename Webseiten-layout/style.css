@@ -1,0 +1,49 @@
+#header {
+  color: rgb(241, 40, 255);
+  font-weight: bold;
+  text-align: center;
+}
+
+.float-image {
+  float: left;
+  height: 500px;
+  width: auto;
+  margin-right: 20px;
+  border: 4px solid black;
+  border-radius: 15px;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  overflow: auto;
+}
+
+.text {
+  color: rgb(0, 0, 0);
+  font-size: 35px;
+}
+
+body {
+  background-color: #2e2c7b6f;
+}
+
+.info {
+  color: rgb(0, 0, 0);
+  font-size: 20px;
+
+}
+
+.footerheader {
+  color: rgb(241, 40, 255);
+  font-weight: bold;
+  text-align: left;
+  font-size: 50px;
+}
+
+#footer {
+  background-color: rgba(138, 16, 160, 0.095);
+  padding: 20px;
+}
