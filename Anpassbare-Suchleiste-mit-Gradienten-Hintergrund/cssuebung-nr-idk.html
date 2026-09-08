@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Anpassbare Suchleiste mit Gradienten-Hintergrund</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="search-page">
+      <h1 aria-label="Poogle">
+        <span class="letter-blue">P</span><span class="letter-red">o</span
+        ><span class="letter-yellow">o</span><span class="letter-blue">g</span
+        ><span class="letter-green">l</span><span class="letter-red">e</span>
+      </h1>
+      <form class="search-bar" id="search-form" role="search">
+        <label for="search">Search now!</label>
+        <div class="search-controls">
+          <input
+            type="search"
+            id="search"
+            name="search"
+            list="search-suggestions"
+            placeholder="What are you looking for today?"
+            autocomplete="off"
+          />
+          <button type="submit">Search</button>
+        </div>
+        <datalist id="search-suggestions">
+          <optgroup label="Technik">
+            <option value="Laptop"></option>
+            <option value="Smartphone"></option>
+            <option value="Kopfhörer"></option>
+          </optgroup>
+          <optgroup label="Bücher">
+            <option value="Romane"></option>
+            <option value="Sachbücher"></option>
+            <option value="Comics"></option>
+          </optgroup>
+          <optgroup label="Kleidung">
+            <option value="Jacken"></option>
+            <option value="Schuhe"></option>
+            <option value="T-Shirts"></option>
+          </optgroup>
+        </datalist>
+      </form>
+    </main>
+    <script>
+      const searchForm = document.querySelector("#search-form");
+      const searchInput = document.querySelector("#search");
+
+      const productSearches = {
+        laptop: "Laptop",
+        smartphone: "Smartphone",
+        kopfhörer: "Kopfhörer",
+        romane: "Romane",
+        sachbücher: "Sachbücher",
+        comics: "Comics",
+        jacken: "Jacken",
+        schuhe: "Schuhe",
+        "t-shirts": "T-Shirts",
+      };
+
+      searchForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const searchTerm = searchInput.value.trim().toLowerCase();
+        const product = productSearches[searchTerm] || searchInput.value.trim();
+
+        if (product) {
+          window.location.href = `https://www.amazon.de/s?k=${encodeURIComponent(product)}`;
+        }
+      });
+    </script>
+  </body>
+</html>

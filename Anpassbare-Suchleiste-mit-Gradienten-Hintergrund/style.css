@@ -1,0 +1,110 @@
+*, *::before, *::after {
+	box-sizing: border-box;
+}
+
+body {
+	min-height: 100vh;
+	margin: 0;
+	display: grid;
+	place-items: center;
+	padding: 24px;
+	font-family: Arial, sans-serif;
+	color: #1f2937;
+	background: linear-gradient(135deg, #dbeafe, #f5d0fe 50%, #fed7aa);
+}
+
+.search-page {
+	width: min(100%, 680px);
+	padding: 40px;
+	border: 1px solid rgba(255, 255, 255, 0.7);
+	border-radius: 16px;
+	background-color: rgba(255, 255, 255, 0.82);
+	box-shadow: 0 16px 40px rgba(31, 41, 55, 0.18);
+}
+
+h1 {
+	margin: 0 0 24px;
+	text-align: center;
+	font-family: "Trebuchet MS", sans-serif;
+	font-size: 3.5rem;
+	font-weight: 900;
+	letter-spacing: 2px;
+}
+
+.letter-blue {
+	color: #087e8b;
+}
+
+.letter-red {
+	color: #f25f5c;
+}
+
+.letter-yellow {
+	color: #f4b942;
+}
+
+.letter-green {
+	color: #6a994e;
+}
+
+.search-bar label {
+	display: block;
+	margin-bottom: 8px;
+	font-weight: 700;
+}
+
+.search-controls {
+	display: flex;
+	gap: 12px;
+}
+
+.search-controls input {
+	flex: 1;
+	min-width: 0;
+	padding: 12px 14px;
+	border: 2px solid #94a3b8;
+	border-radius: 8px;
+	color: #1f2937;
+	font: inherit;
+	background-color: #fff;
+}
+
+.search-controls input:focus {
+	outline: 3px solid rgba(59, 130, 246, 0.3);
+	border-color: #2563eb;
+}
+
+.search-controls button {
+	padding: 12px 20px;
+	border: 0;
+	border-radius: 8px;
+	color: #fff;
+	font: inherit;
+	font-weight: 700;
+	background-color: #2563eb;
+	cursor: pointer;
+}
+
+.search-controls button:hover {
+	background-color: #1d4ed8;
+}
+
+.search-controls button:focus-visible {
+	outline: 3px solid rgba(30, 64, 175, 0.35);
+	outline-offset: 2px;
+}
+
+datalist {
+	color: #1f2937;
+	background-color: #fff;
+}
+
+@media (max-width: 520px) {
+	.search-page {
+		padding: 28px 20px;
+	}
+
+	.search-controls {
+		flex-direction: column;
+	}
+}
