@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Anmelden</title>
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+	<main class="form-page">
+		<section class="form-card">
+			<p class="eyebrow">Willkommen zurück</p>
+			<h1 id="form-title">Anmelden</h1>
+			<p class="intro" id="form-description">Melde dich an, um fortzufahren.</p>
+
+			<div class="form-switcher" role="tablist" aria-label="Formular auswählen">
+				<button class="switch-button active" type="button" role="tab" aria-selected="true" aria-controls="login-panel" data-form="login">Anmelden</button>
+				<button class="switch-button" type="button" role="tab" aria-selected="false" aria-controls="signup-panel" data-form="signup">Registrieren</button>
+			</div>
+
+			<form class="account-form active" id="login-panel" novalidate>
+				<div class="field">
+					<label for="login-username">Benutzername</label>
+					<input type="text" id="login-username" name="username" autocomplete="username" required>
+					<small class="field-error">*Pflichtfeld</small>
+				</div>
+				<div class="field">
+					<label for="login-email">E-Mail</label>
+					<input type="email" id="login-email" name="email" autocomplete="email" placeholder="name@beispiel.de" required>
+					<small class="field-error">*Pflichtfeld</small>
+				</div>
+				<div class="field">
+					<label for="login-password">Passwort</label>
+					<input type="password" id="login-password" name="password" autocomplete="current-password" required>
+					<small class="field-error">*Pflichtfeld</small>
+				</div>
+				<button class="submit-button" type="submit" disabled>Anmelden</button>
+				<p class="form-message" role="status" aria-live="polite"></p>
+			</form>
+
+			<form class="account-form" id="signup-panel" novalidate hidden>
+				<div class="field">
+					<label for="signup-username">Benutzername</label>
+					<input type="text" id="signup-username" name="username" autocomplete="username" required>
+					<small class="field-error">*Pflichtfeld</small>
+				</div>
+				<div class="field">
+					<label for="signup-email">E-Mail</label>
+					<input type="email" id="signup-email" name="email" autocomplete="email" placeholder="name@beispiel.de" required>
+					<small class="field-error">*Pflichtfeld</small>
+				</div>
+				<div class="field">
+					<label for="signup-password">Passwort</label>
+					<input type="password" id="signup-password" name="password" minlength="8" autocomplete="new-password" required>
+					<small class="field-error">*Pflichtfeld</small>
+				</div>
+				<div class="field">
+					<label for="signup-confirm-password">Passwort bestätigen</label>
+					<input type="password" id="signup-confirm-password" name="confirm-password" minlength="8" autocomplete="new-password" required>
+					<small class="field-error">*Pflichtfeld</small>
+				</div>
+				<button class="submit-button" type="submit" disabled>Registrieren</button>
+				<p class="form-message" role="status" aria-live="polite"></p>
+			</form>
+		</section>
+	</main>
+
+	<script>
+		const switchButtons = document.querySelectorAll(".switch-button");
+		const forms = document.querySelectorAll(".account-form");
+		const eyebrow = document.querySelector(".eyebrow");
+		const formTitle = document.querySelector("#form-title");
+		const formDescription = document.querySelector("#form-description");
+
+		function emailIsValid(value) {
+			return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+		}
+
+		function updateSubmitButton(form) {
+			const fields = [...form.querySelectorAll("input[required]")];
+			const fieldsFilled = fields.every((field) => field.value.trim() !== "");
+			const email = form.querySelector('input[type="email"]');
+			const passwordsMatch = form.id !== "signup-panel" ||
+				form.querySelector("#signup-password").value === form.querySelector("#signup-confirm-password").value;
+			const passwordLengthIsValid = form.id !== "signup-panel" || form.querySelector("#signup-password").value.length >= 8;
+
+			form.querySelector(".submit-button").disabled = !fieldsFilled || !emailIsValid(email.value) || !passwordsMatch || !passwordLengthIsValid;
+		}
+
+		function updateFieldMessage(input) {
+			const error = input.parentElement.querySelector(".field-error");
+			const form = input.form;
+			let message = "";
+
+			if (input.value.trim() === "") {
+				message = "*Pflichtfeld";
+			} else if (input.type === "email" && !emailIsValid(input.value)) {
+				message = "*Gültige E-Mail-Adresse erforderlich";
+			} else if (input.id === "signup-password" && input.value.length < 8) {
+				message = "*Mindestens 8 Zeichen erforderlich";
+			} else if (input.id === "signup-confirm-password" && input.value !== form.querySelector("#signup-password").value) {
+				message = "*Passwörter stimmen nicht überein";
+			}
+
+			error.textContent = message;
+			error.classList.toggle("visible", message !== "");
+		}
+
+		forms.forEach((form) => {
+			form.querySelectorAll("input[required]").forEach((input) => {
+				input.addEventListener("input", () => {
+					updateFieldMessage(input);
+					if (input.id === "signup-password") {
+						updateFieldMessage(form.querySelector("#signup-confirm-password"));
+					}
+					updateSubmitButton(form);
+				});
+				input.addEventListener("blur", () => updateFieldMessage(input));
+			});
+			form.addEventListener("submit", (event) => {
+				event.preventDefault();
+				const message = form.querySelector(".form-message");
+				message.textContent = form.id === "login-panel"
+					? "Du wurdest erfolgreich angemeldet."
+					: "Dein Konto wurde erfolgreich erstellt.";
+			});
+		});
+
+		switchButtons.forEach((button) => {
+			button.addEventListener("click", () => {
+				const selectedForm = button.dataset.form;
+
+				switchButtons.forEach((item) => {
+					const isActive = item === button;
+					item.classList.toggle("active", isActive);
+					item.setAttribute("aria-selected", isActive);
+				});
+
+				forms.forEach((form) => {
+					const isActive = form.id === `${selectedForm}-panel`;
+					form.classList.toggle("active", isActive);
+					form.hidden = !isActive;
+				});
+
+				const isSignup = selectedForm === "signup";
+				eyebrow.textContent = isSignup ? "Schön, dass du da bist" : "Willkommen zurück";
+				formTitle.textContent = isSignup ? "Konto erstellen" : "Anmelden";
+				formDescription.textContent = isSignup ? "Erstelle dein persönliches Konto." : "Melde dich an, um fortzufahren.";
+			});
+		});
+	</script>
+</body>
+</html>
