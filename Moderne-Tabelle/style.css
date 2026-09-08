@@ -1,0 +1,91 @@
+* {
+	box-sizing: border-box;
+}
+
+body {
+	margin: 0;
+	padding: 40px 20px;
+	color: #263238;
+	font-family: Arial, sans-serif;
+	background-color: #f4f6f8;
+}
+
+.price-page {
+	width: min(100%, 760px);
+	margin: 0 auto;
+}
+
+h1 {
+	margin: 0 0 8px;
+	font-size: 2rem;
+}
+
+.price-page > p {
+	margin: 0 0 24px;
+	color: #607078;
+}
+
+.table-wrapper {
+	overflow-x: auto;
+	background-color: #fff;
+}
+
+table {
+	width: 100%;
+	min-width: 520px;
+	border-collapse: collapse;
+}
+
+th,
+td {
+	padding: 14px 16px;
+	border-bottom: 1px solid #e1e6e9;
+	text-align: left;
+}
+
+thead th {
+	color: #fff;
+	font-size: 0.9rem;
+	background-color: #455a64;
+}
+
+tbody th {
+	font-weight: 700;
+}
+
+tbody tr:hover {
+	background-color: #f7f9fa;
+}
+
+.status {
+	display: inline-block;
+	padding: 4px 8px;
+	border-radius: 4px;
+	font-size: 0.85rem;
+}
+
+.available {
+	color: #24613a;
+	background-color: #e2f2e8;
+}
+
+.limited {
+	color: #765c13;
+	background-color: #fff3cd;
+}
+
+.unavailable {
+	color: #8a3030;
+	background-color: #fbe4e4;
+}
+
+@media (max-width: 560px) {
+	body {
+		padding: 28px 16px;
+	}
+
+	th,
+	td {
+		padding: 11px 12px;
+	}
+}
