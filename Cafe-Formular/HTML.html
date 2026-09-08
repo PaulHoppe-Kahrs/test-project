@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Café-Bestellung</title>
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+	<main class="cafe-page">
+		<h1>Café Paul von Hoppe</h1>
+		<p class="intro">Wähle dein Lieblingsgetränk und gib deine Kontaktdaten ein.</p>
+
+		<h2>Preisliste</h2>
+		<table>
+			<thead>
+				<tr>
+					<th scope="col">Getränk</th>
+					<th scope="col">Größe</th>
+					<th scope="col">Preis</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr><th scope="row">Kaffee</th><td>Klein</td><td>2,50 €</td></tr>
+				<tr><th scope="row">Cappuccino</th><td>Mittel</td><td>3,50 €</td></tr>
+				<tr><th scope="row">Latte Macchiato</th><td>Groß</td><td>4,00 €</td></tr>
+				<tr><th scope="row">Tee</th><td>Mittel</td><td>2,80 €</td></tr>
+				<tr><th scope="row">Heiße Schokolade</th><td>Groß</td><td>4,20 €</td></tr>
+				<tr><th scope="row">Orangensaft</th><td>0,3 l</td><td>3,00 €</td></tr>
+			</tbody>
+		</table>
+
+		<h2>Bestellformular</h2>
+		<form action="#" method="post">
+			<div class="field">
+				<label for="drink">Getränk:</label>
+				<select id="drink" name="drink" required>
+					<option value="">Bitte auswählen</option>
+					<option value="kaffee">Kaffee</option>
+					<option value="cappuccino">Cappuccino</option>
+					<option value="latte-macchiato">Latte Macchiato</option>
+					<option value="tee">Tee</option>
+					<option value="heisse-schokolade">Heiße Schokolade</option>
+					<option value="orangensaft">Orangensaft</option>
+				</select>
+			</div>
+
+			<div class="field">
+				<label for="quantity">Anzahl:</label>
+				<input type="number" id="quantity" name="quantity" min="1" max="20" required>
+			</div>
+
+			<div class="field">
+				<label for="name">Name:</label>
+				<input type="text" id="name" name="name" minlength="2" pattern="[A-Za-zÄÖÜäöüß \-]+" required>
+			</div>
+
+			<div class="field">
+				<label for="phone">Telefonnummer:</label>
+				<input type="tel" id="phone" name="phone" inputmode="numeric" pattern="[0-9]{6,15}" required>
+			</div>
+
+			<div class="field">
+				<label for="email">E-Mail:</label>
+				<input type="email" id="email" name="email" required>
+			</div>
+
+			<button type="submit">Bestellung absenden</button>
+		</form>
+	</main>
+</body>
+</html>

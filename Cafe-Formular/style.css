@@ -1,0 +1,73 @@
+body {
+	margin: 40px;
+	font-family: Arial, sans-serif;
+	color: #222;
+}
+
+.cafe-page {
+	max-width: 650px;
+}
+
+h1 {
+	margin-bottom: 8px;
+}
+
+h2 {
+	margin-top: 24px;
+	margin-bottom: 10px;
+	font-size: 1.25rem;
+}
+
+.intro {
+	margin-top: 0;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+th,
+td {
+	padding: 4px 8px;
+	border: 1px solid #777;
+	text-align: left;
+}
+
+.field {
+	margin-bottom: 6px;
+}
+
+label {
+	display: inline-block;
+	width: 145px;
+}
+
+input,
+select {
+	width: 220px;
+	padding: 3px;
+	font: inherit;
+}
+
+button {
+	margin-top: 4px;
+	padding: 4px 10px;
+	font: inherit;
+}
+
+@media (max-width: 520px) {
+	body {
+		margin: 20px;
+	}
+
+	label {
+		display: block;
+		width: auto;
+		margin-bottom: 3px;
+	}
+
+	input,
+	select {
+		width: 100%;
+	}
+}
