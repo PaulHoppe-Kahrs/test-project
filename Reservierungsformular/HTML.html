@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Restaurant-Reservierung</title>
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+	<h1>Reservierungstabelle</h1>
+	<table>
+		<thead>
+			<tr>
+				<th scope="col">Tag</th>
+				<th scope="col">Verfügbare Zeiten</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr><th scope="row">Montag</th><td>18:00, 20:00</td></tr>
+			<tr><th scope="row">Dienstag</th><td>18:00, 20:00</td></tr>
+			<tr><th scope="row">Mittwoch</th><td>18:00, 20:00</td></tr>
+			<tr><th scope="row">Donnerstag</th><td>18:00, 20:00</td></tr>
+			<tr><th scope="row">Freitag</th><td>18:00, 20:00</td></tr>
+			<tr><th scope="row">Samstag</th><td>18:00, 20:00</td></tr>
+			<tr><th scope="row">Sonntag</th><td>Geschlossen</td></tr>
+		</tbody>
+	</table>
+
+	<h2>Reservierungsformular</h2>
+	<form id="reservation-form" novalidate>
+		<div class="field">
+			<label for="name">Name:</label>
+			<input type="text" id="name" name="name" required>
+		</div>
+		<div class="field">
+			<label for="phone">Telefonnummer:</label>
+			<input type="tel" id="phone" name="phone" inputmode="numeric" pattern="[0-9]+" required>
+		</div>
+		<div class="field">
+			<label for="guests">Anzahl der Personen:</label>
+			<input type="number" id="guests" name="guests" min="1" required>
+		</div>
+		<div class="field">
+			<label for="date">Datum:</label>
+			<input type="date" id="date" name="date" required>
+		</div>
+		<div class="field">
+			<label for="time">Uhrzeit:</label>
+			<input type="time" id="time" name="time" required>
+		</div>
+		<button type="submit">Reservieren</button>
+		<p id="form-message" role="status" aria-live="polite"></p>
+	</form>
+
+	<script>
+		const reservationForm = document.querySelector("#reservation-form");
+		const phoneInput = document.querySelector("#phone");
+		const formMessage = document.querySelector("#form-message");
+
+		reservationForm.addEventListener("submit", (event) => {
+			event.preventDefault();
+			formMessage.textContent = "";
+			phoneInput.setCustomValidity("");
+
+			if (!phoneInput.value || !/^[0-9]+$/.test(phoneInput.value)) {
+				phoneInput.setCustomValidity("Die Telefonnummer darf nur Ziffern enthalten.");
+			}
+
+			if (!reservationForm.checkValidity()) {
+				reservationForm.reportValidity();
+				return;
+			}
+
+			formMessage.textContent = "Vielen Dank! Deine Reservierungsanfrage wurde aufgenommen.";
+			reservationForm.reset();
+		});
+	</script>
+</body>
+</html>
