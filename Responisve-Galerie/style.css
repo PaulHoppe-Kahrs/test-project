@@ -3,8 +3,11 @@
 }
 
 body {
+	min-height: 100vh;
 	margin: 0;
-	padding: 32px 20px;
+	display: flex;
+	flex-direction: column;
+	padding: 32px 20px 0;
 	color: #263238;
 	font-family: Arial, sans-serif;
 	background-color: #eecfcf95;
@@ -12,7 +15,9 @@ body {
 
 .gallery-page {
 	width: min(100%, 1000px);
+	flex: 1;
 	margin: 0 auto;
+	padding-bottom: 40px;
 }
 
 h1 {
@@ -62,6 +67,42 @@ h1 {
 	box-shadow: 0 7px 16px rgba(38, 50, 56, 0.18);
 }
 
+.site-footer {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	align-items: flex-start;
+	gap: 28px;
+	width: calc(100% + 40px);
+	margin-left: -20px;
+	padding: 28px max(20px, calc((100% - 1000px) / 2));
+	color: #ffffff;
+	background-color: #263238;
+}
+
+.footer-section {
+	flex: 1 1 200px;
+}
+
+.footer-section h2 {
+	margin: 0 0 10px;
+	font-size: 1rem;
+}
+
+.footer-section p,
+.footer-section a {
+	display: block;
+	margin: 5px 0;
+	color: #d7e0e3;
+	font-size: 0.9rem;
+	text-decoration: none;
+}
+
+.footer-section a:hover {
+	color: #ffffff;
+	text-decoration: underline;
+}
+
 @media (max-width: 520px) {
 	body {
 		padding: 24px 16px;
@@ -70,5 +111,11 @@ h1 {
 	.gallery-item {
 		flex-basis: 100%;
 		max-width: 420px;
+	}
+
+	.site-footer {
+		width: calc(100% + 32px);
+		margin-left: -16px;
+		padding: 24px 16px;
 	}
 }
