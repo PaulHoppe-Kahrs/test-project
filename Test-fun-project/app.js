@@ -1,17 +1,31 @@
 const CLIENT_ID = "ac5c820103d94d3186f4fc06503aba5c";
-const REDIRECT_URI = "http://127.0.0.1:5500/callback";
+const REDIRECT_URI = `${window.location.origin}/callback`;
 const SCOPES = "playlist-read-private playlist-read-collaborative playlist-modify-public playlist-modify-private";
 
 const loginButton = document.querySelector("#login-button");
 const addPlaylistButton = document.querySelector("#add-playlist");
 const loadPlaylistsButton = document.querySelector("#load-playlists");
 const playlistList = document.querySelector("#playlist-list");
-const genreSelect = document.querySelector("#genre-select");
+const genreSearch = document.querySelector("#genre-search");
+const genreOptions = document.querySelector("#genre-options");
 const result = document.querySelector("#result");
 const connectionStatus = document.querySelector("#connection-status");
+const playlistPreview = document.querySelector("#playlist-preview");
 
-let accessToken = sessionStorage.getItem("spotify_access_token");
+const TOKEN_STORAGE_KEY = "spotify_tokens";
+const GENRE_HISTORY_KEY = "genre_mixer_history";
+const EXTRA_GENRES = [
+  "Alternative Rock", "Ambient", "Deep House", "Drum and Bass", "Dubstep",
+  "Folk", "Funk", "Future Bass", "Hardstyle", "Heavy Metal", "House",
+  "Indie Rock", "K-Pop", "Neo-Soul", "Progressive Rock", "Psytrance",
+  "Punk Rock", "Soft Rock", "Soul", "Tech House", "Techno", "Thrash Metal",
+  "Trap", "Synthwave"
+];
+let storedTokens = JSON.parse(localStorage.getItem(TOKEN_STORAGE_KEY) || "null");
+let accessToken = storedTokens?.accessToken || null;
 let tracks = [];
+let availableGenres = [];
+let selectedGenre = "";
 
 function setResult(message, type = "") {
   result.textContent = message;
@@ -67,13 +81,42 @@ async function exchangeCodeForToken(code) {
   }
 
   const data = await response.json();
-  accessToken = data.access_token;
-  sessionStorage.setItem("spotify_access_token", accessToken);
+  storeTokens(data);
   sessionStorage.removeItem("spotify_code_verifier");
   window.history.replaceState({}, document.title, window.location.pathname);
 }
 
+function storeTokens(data, existingRefreshToken = null) {
+  storedTokens = {
+    accessToken: data.access_token,
+    refreshToken: data.refresh_token || existingRefreshToken,
+    expiresAt: Date.now() + ((data.expires_in || 3600) - 60) * 1000
+  };
+  accessToken = storedTokens.accessToken;
+  localStorage.setItem(TOKEN_STORAGE_KEY, JSON.stringify(storedTokens));
+}
+
+async function refreshAccessToken() {
+  if (!storedTokens?.refreshToken) return false;
+  const response = await fetch("https://accounts.spotify.com/api/token", {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: new URLSearchParams({
+      client_id: CLIENT_ID,
+      grant_type: "refresh_token",
+      refresh_token: storedTokens.refreshToken
+    })
+  });
+  if (!response.ok) return false;
+  storeTokens(await response.json(), storedTokens.refreshToken);
+  return true;
+}
+
 async function spotifyRequest(endpoint, options = {}) {
+  if (storedTokens?.expiresAt && Date.now() >= storedTokens.expiresAt) {
+    const refreshed = await refreshAccessToken();
+    if (!refreshed) accessToken = null;
+  }
   const headers = {
     Authorization: `Bearer ${accessToken}`,
     ...options.headers
@@ -89,8 +132,11 @@ async function spotifyRequest(endpoint, options = {}) {
   });
 
   if (response.status === 401) {
+    const refreshed = await refreshAccessToken();
+    if (refreshed) return spotifyRequest(endpoint, options);
     accessToken = null;
-    sessionStorage.removeItem("spotify_access_token");
+    storedTokens = null;
+    localStorage.removeItem(TOKEN_STORAGE_KEY);
     updateConnectionStatus();
     throw new Error("Deine Spotify-Anmeldung ist abgelaufen.");
   }
@@ -129,7 +175,13 @@ async function getPlaylistTracks(playlistId) {
   }
 
   try {
-    let items = await getItems(`/playlists/${playlistId}/items`);
+    let items;
+    try {
+      items = await getItems(`/playlists/${playlistId}/items`);
+    } catch (error) {
+      if (!error.message.includes("404")) throw error;
+      items = await getItems(`/playlists/${playlistId}/tracks`);
+    }
     let tracks = items
       .map((entry) => {
         if (entry?.item?.id) return entry.item;
@@ -183,17 +235,42 @@ async function getLastFmGenres(artists) {
   return data.tags;
 }
 
-function fillGenreSelect() {
-  const genres = [...new Set(tracks.flatMap((track) => track.genres))].sort();
-  genreSelect.replaceChildren();
+function getGenreHistory() {
+  return JSON.parse(localStorage.getItem(GENRE_HISTORY_KEY) || "[]");
+}
 
-  if (!genres.length) {
-    genreSelect.add(new Option("Keine Künstler-Genres gefunden", ""));
-    return;
-  }
+function fillGenreOptions(query = "") {
+  const search = query.trim().toLowerCase();
+  const history = getGenreHistory();
+  const uniqueGenres = new Map();
+  [...history, ...availableGenres].forEach((genre) => {
+    const key = genre.toLowerCase();
+    if (!uniqueGenres.has(key)) uniqueGenres.set(key, genre);
+  });
+  const genres = [...uniqueGenres.values()]
+    .filter((genre) => !search || genre.toLowerCase().includes(search));
+  genreOptions.replaceChildren();
+  genres.forEach((genre) => {
+    const option = document.createElement("button");
+    option.type = "button";
+    option.className = "genre-option";
+    option.textContent = history.includes(genre) ? `${genre}  · zuletzt verwendet` : genre;
+    option.setAttribute("role", "option");
+    option.addEventListener("click", () => selectGenre(genre));
+    genreOptions.append(option);
+  });
+  genreOptions.hidden = !genres.length;
+  genreSearch.setAttribute("aria-expanded", String(!genreOptions.hidden));
+}
 
-  genreSelect.add(new Option("Genre auswählen", ""));
-  genres.forEach((genre) => genreSelect.add(new Option(genre, genre)));
+function selectGenre(genre) {
+  selectedGenre = genre;
+  genreSearch.value = genre;
+  const history = [genre, ...getGenreHistory().filter((entry) => entry !== genre)].slice(0, 8);
+  localStorage.setItem(GENRE_HISTORY_KEY, JSON.stringify(history));
+  genreOptions.hidden = true;
+  genreSearch.setAttribute("aria-expanded", "false");
+  loadPlaylistsButton.textContent = "Playlist erstellen";
 }
 
 async function analysePlaylists() {
@@ -243,12 +320,18 @@ async function analysePlaylists() {
     })).filter((track) => track.genres.length);
 
     if (!tracks.length) {
-      fillGenreSelect();
+      availableGenres = [];
+      fillGenreOptions();
       setResult(`${uniqueTracks.length} Songs wurden gelesen, aber Spotify liefert für diese Künstler keine Genre-Daten mehr. Die automatische Genre-Auswahl ist mit diesem Spotify-API-Zugriff nicht verfügbar.`, "error");
       return;
     }
 
-    fillGenreSelect();
+    availableGenres = [...new Set([
+      ...EXTRA_GENRES,
+      ...tracks.flatMap((track) => track.genres)
+    ])].sort((left, right) => left.localeCompare(right));
+    genreSearch.disabled = false;
+    fillGenreOptions();
     const warning = failedPlaylists.length
       ? ` ${failedPlaylists.length} Playlist konnte nicht gelesen werden.`
       : "";
@@ -261,10 +344,14 @@ async function analysePlaylists() {
 }
 
 async function createGenrePlaylist() {
-  const selectedGenre = genreSelect.value;
-  const matchingTracks = tracks.filter((track) => track.genres.some((genre) => genre === selectedGenre || genre.includes(selectedGenre)));
+  const genre = selectedGenre || genreSearch.value.trim();
+  const normalizedGenre = genre.toLowerCase();
+  const matchingTracks = tracks.filter((track) => track.genres.some((trackGenre) => {
+    const normalizedTrackGenre = trackGenre.toLowerCase();
+    return normalizedTrackGenre === normalizedGenre || normalizedTrackGenre.includes(normalizedGenre);
+  }));
 
-  if (!selectedGenre || !matchingTracks.length) {
+  if (!genre || !matchingTracks.length) {
     setResult("Bitte wähle ein Genre mit passenden Songs aus.", "error");
     return;
   }
@@ -276,7 +363,7 @@ async function createGenrePlaylist() {
     const playlist = await spotifyRequest("/me/playlists", {
       method: "POST",
       body: JSON.stringify({
-        name: `Genre Mixer - ${selectedGenre}`,
+        name: `Genre Mixer - ${genre}`,
         description: `Erstellt mit Genre Mixer aus ${matchingTracks.length} passenden Songs.`,
         public: false
       })
@@ -289,13 +376,54 @@ async function createGenrePlaylist() {
       });
     }
 
+    renderPlaylistPreview(playlist, matchingTracks);
     setResult(`Fertig. ${matchingTracks.length} Songs wurden hinzugefügt: ${playlist.name}`, "success");
-    window.open(playlist.external_urls.spotify, "_blank", "noopener");
   } catch (error) {
     setResult(error.message, "error");
   } finally {
     loadPlaylistsButton.disabled = false;
   }
+}
+
+function renderPlaylistPreview(playlist, matchingTracks) {
+  playlistPreview.hidden = false;
+  playlistPreview.replaceChildren();
+  const heading = document.createElement("div");
+  heading.className = "preview-heading";
+  const title = document.createElement("h3");
+  title.textContent = playlist.name;
+  const link = document.createElement("a");
+  link.href = playlist.external_urls.spotify;
+  link.target = "_blank";
+  link.rel = "noopener";
+  link.textContent = "In Spotify öffnen";
+  heading.append(title, link);
+  playlistPreview.append(heading);
+  const list = document.createElement("ol");
+  matchingTracks.forEach((track) => {
+    const item = document.createElement("li");
+    item.textContent = `${track.name} – ${track.artists.map((artist) => artist.name).join(", ")}`;
+    list.append(item);
+  });
+  playlistPreview.append(list);
+}
+
+async function pastePlaylistLink(button) {
+  try {
+    const text = await navigator.clipboard.readText();
+    const input = button.closest(".playlist-row").querySelector(".playlist-input");
+    input.value = text;
+    input.focus();
+    button.textContent = "Eingefügt";
+    setTimeout(() => { button.textContent = "Einfügen"; }, 1400);
+  } catch {
+    setResult("Der Zugriff auf die Zwischenablage wurde blockiert. Füge den Link bitte manuell ein.", "error");
+  }
+}
+
+function wirePlaylistRow(row) {
+  row.querySelector(".copy-button").addEventListener("click", (event) => pastePlaylistLink(event.currentTarget));
+  row.querySelector(".remove-button").addEventListener("click", () => row.remove());
 }
 
 function updateConnectionStatus() {
@@ -308,22 +436,27 @@ function updateConnectionStatus() {
 addPlaylistButton.addEventListener("click", () => {
   const row = document.createElement("div");
   row.className = "playlist-row";
-  row.innerHTML = '<input class="playlist-input" type="url" placeholder="https://open.spotify.com/playlist/..." aria-label="Spotify Playlist-Link"><button class="remove-button" type="button">Entfernen</button>';
-  row.querySelector(".remove-button").addEventListener("click", () => row.remove());
+  row.innerHTML = '<input class="playlist-input" type="url" placeholder="https://open.spotify.com/playlist/..." aria-label="Spotify Playlist-Link"><button class="copy-button" type="button" aria-label="Playlist-Link aus Zwischenablage einfügen" title="Link aus Zwischenablage einfügen">Einfügen</button><button class="remove-button" type="button">Entfernen</button>';
+  wirePlaylistRow(row);
   playlistList.append(row);
 });
 
 loadPlaylistsButton.addEventListener("click", () => {
-  if (genreSelect.value && tracks.length) {
+  if ((selectedGenre || genreSearch.value.trim()) && tracks.length) {
     createGenrePlaylist();
   } else {
     analysePlaylists();
   }
 });
 
-genreSelect.addEventListener("change", () => {
-  loadPlaylistsButton.textContent = genreSelect.value ? "Playlist erstellen" : "Genre auswählen";
+genreSearch.addEventListener("input", () => {
+  selectedGenre = "";
+  loadPlaylistsButton.textContent = "Playlists analysieren";
+  fillGenreOptions(genreSearch.value);
 });
+genreSearch.addEventListener("focus", () => fillGenreOptions(genreSearch.value));
+
+wirePlaylistRow(document.querySelector(".playlist-row"));
 
 loginButton.addEventListener("click", startLogin);
 
@@ -334,6 +467,14 @@ loginButton.addEventListener("click", startLogin);
   try {
     if (code) {
       await exchangeCodeForToken(code);
+    }
+    if (storedTokens?.expiresAt && Date.now() >= storedTokens.expiresAt) {
+      const refreshed = await refreshAccessToken();
+      if (!refreshed) {
+        accessToken = null;
+        storedTokens = null;
+        localStorage.removeItem(TOKEN_STORAGE_KEY);
+      }
     }
     updateConnectionStatus();
   } catch (error) {

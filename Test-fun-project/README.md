@@ -11,13 +11,21 @@ node server.js
 Danach im Browser öffnen:
 
 ```text
-http://127.0.0.1:5500/
+http://127.0.0.1:5510/
 ```
 
 Die Spotify-App muss diese Redirect-URI enthalten:
 
 ```text
-http://127.0.0.1:5500/callback
+http://127.0.0.1:5510/callback
+
+Falls du einen anderen freien Port brauchst, kannst du ihn beim Start setzen:
+
+```bash
+PORT=5520 node server.js
+```
+
+Dann muss auch die entsprechende Adresse `http://127.0.0.1:5520/callback` in der Spotify-App eingetragen und die Website unter `http://127.0.0.1:5520/` geöffnet werden.
 ```
 
 Die App nutzt Spotify OAuth mit PKCE. Es wird kein Client Secret im Browser gespeichert.

@@ -157,9 +157,24 @@ select {
 }
 
 .playlist-input:focus,
-select:focus {
+.genre-picker input:focus {
   outline: 2px solid #d4f36a;
   border-color: #d4f36a;
+}
+
+.copy-button {
+  flex: 0 0 auto;
+  padding: 0 12px;
+  border: 1px solid #45423d;
+  border-radius: 4px;
+  color: #d4f36a;
+  background: #252421;
+  font-weight: 700;
+}
+
+.copy-button:hover {
+  border-color: #d4f36a;
+  background: #302f2b;
 }
 
 .remove-button {
@@ -215,6 +230,55 @@ label {
   min-height: 45px;
 }
 
+.genre-picker {
+  position: relative;
+}
+
+.genre-picker input {
+  width: 100%;
+  min-width: 0;
+  padding: 12px;
+  border: 1px solid #45423d;
+  border-radius: 4px;
+  color: #f4f0e8;
+  background: #11100f;
+}
+
+.genre-picker input:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.genre-options {
+  position: absolute;
+  z-index: 2;
+  top: calc(100% + 5px);
+  right: 0;
+  left: 0;
+  max-height: 230px;
+  overflow-y: auto;
+  border: 1px solid #45423d;
+  border-radius: 4px;
+  background: #252421;
+  box-shadow: 0 12px 26px rgb(0 0 0 / 25%);
+}
+
+.genre-option {
+  display: block;
+  width: 100%;
+  padding: 10px 12px;
+  border: 0;
+  color: #f4f0e8;
+  text-align: left;
+  background: transparent;
+}
+
+.genre-option:hover,
+.genre-option:focus-visible {
+  color: #11100f;
+  background: #d4f36a;
+}
+
 .result {
   min-height: 24px;
   margin-top: 20px;
@@ -228,6 +292,45 @@ label {
 
 .result.error {
   color: #f29b85;
+}
+
+.playlist-preview {
+  margin-top: 24px;
+  padding: 18px;
+  border: 1px solid #45423d;
+  border-radius: 5px;
+  background: #11100f;
+}
+
+.preview-heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 14px;
+}
+
+.preview-heading h3 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.preview-heading a {
+  color: #d4f36a;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.playlist-preview ol {
+  max-height: 300px;
+  margin: 0;
+  padding-left: 25px;
+  overflow-y: auto;
+  color: #c2bdb2;
+}
+
+.playlist-preview li {
+  padding: 5px 0 5px 4px;
 }
 
 .how-it-works {
@@ -284,5 +387,15 @@ label {
 
   .remove-button {
     min-height: 40px;
+  }
+
+  .copy-button {
+    min-height: 40px;
+  }
+
+  .preview-heading {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 8px;
   }
 }

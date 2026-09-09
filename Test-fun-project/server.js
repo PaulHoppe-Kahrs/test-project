@@ -4,6 +4,7 @@ const path = require("path");
 const https = require("https");
 
 const root = __dirname;
+const port = Number(process.env.PORT || 5510);
 const environmentPath = path.join(root, ".env");
 const environment = fs.existsSync(environmentPath)
   ? Object.fromEntries(fs.readFileSync(environmentPath, "utf8").split(/\r?\n/).filter(Boolean).map((line) => line.split(/=(.*)/s, 2)))
@@ -105,6 +106,6 @@ const server = http.createServer((request, response) => {
   });
 });
 
-server.listen(5500, "127.0.0.1", () => {
-  console.log("Genre Mixer läuft auf http://127.0.0.1:5500");
+server.listen(port, "127.0.0.1", () => {
+  console.log(`Genre Mixer läuft auf http://127.0.0.1:${port}`);
 });
