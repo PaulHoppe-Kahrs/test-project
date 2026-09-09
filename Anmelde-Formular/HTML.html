@@ -5,8 +5,21 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Anmelden</title>
 	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
 <body>
+	<div class="contact-widget" id="contact-widget">
+		<button class="contact-tab" id="contact-toggle" type="button" aria-expanded="false" aria-controls="contact-panel">
+			<i class="fa-solid fa-address-book" aria-hidden="true"></i>
+			Kontakt
+		</button>
+		<section class="contact-panel" id="contact-panel" aria-hidden="true" aria-labelledby="contact-title">
+			<h2 id="contact-title">Kontaktiere uns</h2>
+			<p><i class="fa-solid fa-phone" aria-hidden="true"></i><a href="tel:+491234567890">+49 123 456 7890</a></p>
+			<p><i class="fa-solid fa-envelope" aria-hidden="true"></i><a href="mailto:info@beispielwebseite.de">info@beispielwebseite.de</a></p>
+			<p><i class="fa-solid fa-location-dot" aria-hidden="true"></i><span>Musterstraße 1, 12345 Musterstadt</span></p>
+		</section>
+	</div>
 	<main class="form-page">
 		<section class="form-card">
 			<p class="eyebrow">Willkommen zurück</p>
@@ -71,10 +84,44 @@
 		const eyebrow = document.querySelector(".eyebrow");
 		const formTitle = document.querySelector("#form-title");
 		const formDescription = document.querySelector("#form-description");
+		const contactToggle = document.querySelector("#contact-toggle");
+		const contactPanel = document.querySelector("#contact-panel");
+		const contactWidget = document.querySelector("#contact-widget");
+		let closeContactTimer;
 
 		function emailIsValid(value) {
 			return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
 		}
+
+		function setContactPanel(isOpen) {
+			clearTimeout(closeContactTimer);
+			contactToggle.setAttribute("aria-expanded", String(isOpen));
+			contactPanel.classList.toggle("open", isOpen);
+			contactPanel.setAttribute("aria-hidden", String(!isOpen));
+		}
+
+		contactToggle.addEventListener("click", () => {
+			const isOpen = contactToggle.getAttribute("aria-expanded") === "true";
+			setContactPanel(!isOpen);
+		});
+
+		contactWidget.addEventListener("mouseenter", () => {
+			clearTimeout(closeContactTimer);
+		});
+
+		contactWidget.addEventListener("mouseleave", () => {
+			closeContactTimer = setTimeout(() => setContactPanel(false), 180);
+		});
+
+		contactWidget.addEventListener("focusin", () => {
+			clearTimeout(closeContactTimer);
+		});
+
+		contactWidget.addEventListener("focusout", (event) => {
+			if (!contactWidget.contains(event.relatedTarget)) {
+				closeContactTimer = setTimeout(() => setContactPanel(false), 180);
+			}
+		});
 
 		function updateSubmitButton(form) {
 			const fields = [...form.querySelectorAll("input[required]")];
