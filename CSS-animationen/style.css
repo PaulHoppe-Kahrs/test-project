@@ -1,0 +1,187 @@
+* {
+	box-sizing: border-box;
+}
+
+html {
+	scroll-behavior: smooth;
+}
+
+body {
+	background: #f2f2f2;
+	color: #222;
+	font-family: Arial, Helvetica, sans-serif;
+	line-height: 1.5;
+	margin: 0;
+}
+
+a {
+	color: inherit;
+}
+
+.site-header {
+	align-items: center;
+	background: #333;
+	color: #fff;
+	display: flex;
+	justify-content: space-between;
+	padding: 18px max(5vw, 20px);
+}
+
+.logo {
+	font-weight: bold;
+	text-decoration: none;
+}
+
+nav {
+	display: flex;
+	gap: 20px;
+}
+
+nav a {
+	font-size: 14px;
+	text-decoration: none;
+}
+
+nav a:hover,
+nav a:focus-visible {
+	text-decoration: underline;
+}
+
+main {
+	margin: 0 auto;
+	max-width: 850px;
+}
+
+.section {
+	background: #fff;
+	margin: 28px 20px;
+	padding: clamp(24px, 5vw, 48px);
+	-webkit-animation: section-appear 800ms ease both;
+	animation: section-appear 800ms ease both;
+	animation-timeline: view();
+	animation-range: entry 0% cover 35%;
+}
+
+.intro {
+	min-height: 310px;
+	padding-top: 70px;
+}
+
+.label {
+	color: #666;
+	font-size: 13px;
+	margin: 0 0 10px;
+	text-transform: uppercase;
+}
+
+h1,
+h2,
+h3 {
+	line-height: 1.2;
+	margin-top: 0;
+}
+
+h1 {
+	font-size: clamp(2rem, 6vw, 3.5rem);
+}
+
+h2 {
+	font-size: clamp(1.5rem, 4vw, 2.2rem);
+}
+
+.intro > p:last-child,
+.contact > p:last-child {
+	max-width: 520px;
+}
+
+.projects {
+	display: grid;
+	gap: 16px;
+	grid-template-columns: repeat(3, 1fr);
+}
+
+.project-card {
+	border: 1px solid #ddd;
+	padding: 18px;
+	transition: transform 200ms ease, box-shadow 200ms ease;
+}
+
+.project-card:hover {
+	-webkit-transform: translateY(-4px);
+	transform: translateY(-4px);
+	box-shadow: 0 5px 12px rgba(0, 0, 0, 0.1);
+}
+
+.project-card h3 {
+	font-size: 17px;
+}
+
+.project-card p {
+	font-size: 14px;
+	margin-bottom: 0;
+}
+
+.contact a {
+	color: #4444d8;
+}
+
+footer {
+	background: #333;
+	color: #fff;
+	font-size: 13px;
+	margin-top: 40px;
+	padding: 22px;
+	text-align: center;
+}
+
+@-webkit-keyframes section-appear {
+	from {
+		opacity: 0;
+		-webkit-transform: translateY(35px);
+		transform: translateY(35px);
+	}
+	to {
+		opacity: 1;
+		-webkit-transform: translateY(0);
+		transform: translateY(0);
+	}
+}
+
+@keyframes section-appear {
+	from {
+		opacity: 0;
+		transform: translateY(35px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+@media (max-width: 600px) {
+	.site-header {
+		align-items: flex-start;
+		flex-direction: column;
+		gap: 12px;
+	}
+
+	nav {
+		gap: 14px;
+	}
+
+	.projects {
+		grid-template-columns: 1fr;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	html {
+		scroll-behavior: auto;
+	}
+
+	.section {
+		-webkit-animation: none;
+		animation: none;
+		animation-timeline: auto;
+	}
+}
