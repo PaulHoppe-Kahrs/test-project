@@ -1,0 +1,6 @@
+{
+  "emmet.includeLanguages": {
+    "php": "html"
+  },
+  "emmet.triggerExpansionOnTab": true
+}
