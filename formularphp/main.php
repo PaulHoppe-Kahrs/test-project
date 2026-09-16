@@ -1,7 +1,5 @@
 <?php
+require_once("./form/form.php");
+?>
 
-require_once("./form.php");
-
-
-
-
+<link rel="stylesheet" href="./form/form.style.css">
