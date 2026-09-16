@@ -1,3 +1,4 @@
+<?php require_once '../main.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,37 +8,34 @@
   <title>Hello World</title>
 </head>
 <body>
-
-<h1 class="title">Hier deine Daten angeben!</h1>
-<h2 class="title">|</h2>
-<h2 class="title">|</h2>
-<h2 class="title">▼</h2>
-  
-              
   <form action="#" method="post">
-
+    <h2 class="form-title">Sign-Up</h2>
+    
     <div class="input-container">
       <label for="input-username">Username</label>
-      <input type="text" name="username" id="input-username"placeholder="username">
-    </div>
-
-    <div class="input-container">
-      <label for="input-number">Number</label>
-      <input type="text" name="number" id="input-number"placeholder="number">
+      <input type="text" name="username" id="input-username" placeholder="Username">
     </div>
 
     <div class="input-container">
       <label for="input-email">Email</label>
-      <input type="email" name="email" id="input-email"placeholder="email">
+      <input type="email" name="email" id="input-email" placeholder="your@email.com">
+    </div>
+
+    <div class="input-container">
+      <label for="input-age">Age</label>
+      <input type="number" name="age" id="input-age" placeholder="Age">
     </div>
 
     <div class="input-container">
       <label for="input-password">Password</label>
-      <input type="password" name="password" id="input-password"placeholder="password">
+      <input type="password" name="password" id="input-password" placeholder="Password">
     </div>
 
-    <input type="submit" value="Submit Now!">
-    <button type="submit"></button>
+    <div class="button-container">
+      <button type="submit" name="send-login">Submit</button>
+    </div>
   </form>
+
+  <small><?php echo $errormsg; ?></small>
 </body>
 </html>

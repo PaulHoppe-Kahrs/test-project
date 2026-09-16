@@ -5,9 +5,10 @@
   font-family: 'Courier New', Courier, monospace;
 }
 
-.title {
+.form-title {
   color: white;
   text-align: center;
+  margin-bottom: 2rem;
 }
 
 body {
@@ -15,35 +16,63 @@ body {
   color: rgb(255, 255, 255);
   height: 100vh;
   width: 100vw;
-  border: 10px solid rgb(136, 108, 132);
+  border: 5px solid rgb(255, 0, 0);
 
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 1.5rem;             
+}
 
-  form {
-    border-radius: 73px;
-    background: #813d9c;
-    box-shadow:  38px 38px 100px #34183e,
-                 -38px -38px 100px #ce62fa;
-    padding: 2.5rem; /* HIER NEU: Sorgt dafür, dass alles innerhalb der Box bleibt */
+body form {
+  border-radius: 73px;
+  background: #813d9c;
+  box-shadow: 41px 41px 0px #34183e,
+              -41px -41px 0px #ce62fa;
+  padding: 2.5rem;
+}
 
-    .input-container {
-      width: 22rem;
-      margin-bottom: 1rem;
-      
-      label {
-        margin-bottom: 0.5rem;
-        display: block;
-      }
-      
-      input {
-        width: 100%;
-        height: 2rem;
-        border-radius: 0.5rem;
-      }
-    }
-  }
+body form .input-container {
+  width: 22rem;
+  margin-bottom: 1rem;
+}
+
+body form .input-container label {
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+body form .input-container input {
+  width: 100%;
+  height: 2rem;
+  border-radius: 0.5rem;
+  padding: 0 0.5rem;
+  border: none;
+}
+
+body form .button-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+body form .button-container button {
+  font-size: 1.1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  margin-top: 2rem;
+  background-color: rgb(164, 203, 239);
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  color: #000;
+}
+
+body form .button-container button:hover {
+  background-color: rgb(127, 160, 191);
+}
+
+body form .button-container button:active {
+  background-color: rgb(43, 53, 62);
+  color: white;
 }
