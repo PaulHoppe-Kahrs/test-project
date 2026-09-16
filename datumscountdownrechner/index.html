@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Datum Countdown Rechner</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="app">
+      <div class="card">
+        <p class="eyebrow">Datum Countdown Rechner</p>
+        <h1>Countdown bis zum Ziel</h1>
+
+        <div class="controls">
+          <label class="date-label" for="targetDate">Wähle ein Datum</label>
+          <div class="input-row">
+            <input id="targetDate" type="date" />
+            <button id="startCountdown" type="button">Start</button>
+          </div>
+        </div>
+
+        <div class="display">
+          <div class="time-box">
+            <span id="days">00</span>
+            <small>Tage</small>
+          </div>
+          <div class="time-box">
+            <span id="hours">00</span>
+            <small>Stunden</small>
+          </div>
+          <div class="time-box">
+            <span id="minutes">00</span>
+            <small>Minuten</small>
+          </div>
+          <div class="time-box">
+            <span id="seconds">00</span>
+            <small>Sekunden</small>
+          </div>
+        </div>
+
+        <p id="status" class="status">Noch bis zum festgelegten Datum</p>
+      </div>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
