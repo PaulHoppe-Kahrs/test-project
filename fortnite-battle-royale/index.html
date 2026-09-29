@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Battle Royale Mini</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="site-bg">
+      <div class="orb orb-1"></div>
+      <div class="orb orb-2"></div>
+      <div class="orb orb-3"></div>
+      <div class="grid-glow"></div>
+    </div>
+
+    <header class="topbar">
+      <div class="brand-wrap">
+        <span class="brand-mark">R</span>
+        <span>RIFT ROYALE</span>
+      </div>
+      <nav class="main-nav">
+        <a href="#overview">Overview</a>
+        <a href="#systems">Systems</a>
+        <a href="#loadouts">Loadouts</a>
+        <a href="#match">Match</a>
+      </nav>
+      <button class="ghost-btn">Open Match</button>
+    </header>
+
+    <main class="site-page">
+      <section class="hero" id="overview">
+        <div class="hero-copy">
+          <span class="eyebrow">BATTLE PASS 01</span>
+          <h1>Enter the final zone. Own the circle.</h1>
+          <p>
+            Ein hochdynamischer Battle-Royale-Prototyp mit schnellen Loadouts, starken Waffen,
+            klaren Gegnermustern und einem professionell gehackten UI-Design.
+          </p>
+          <div class="cta-row">
+            <button class="primary-btn" id="heroStart">Spiel starten</button>
+            <button class="secondary-btn">Loadouts</button>
+          </div>
+
+          <div class="mini-stats">
+            <div class="mini-card">
+              <strong>7</strong>
+              <span>Waffen</span>
+            </div>
+            <div class="mini-card">
+              <strong>5</strong>
+              <span>Enemy Types</span>
+            </div>
+            <div class="mini-card">
+              <strong>24/7</strong>
+              <span>Zone Fights</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-visual glass-panel">
+          <div class="live-badge">LIVE MATCH</div>
+          <div class="visual-grid">
+            <div class="visual-stat">
+              <span>Alive</span>
+              <strong>9</strong>
+            </div>
+            <div class="visual-stat">
+              <span>Threat</span>
+              <strong>High</strong>
+            </div>
+            <div class="visual-stat big">
+              <span>Zone</span>
+              <strong>3.4 KM</strong>
+            </div>
+            <div class="visual-stat accent">
+              <span>Weapon</span>
+              <strong>DMR</strong>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="showcase" id="systems">
+        <div class="section-head">
+          <span class="eyebrow">CORE SYSTEMS</span>
+          <h2>Built for fast movement and hard decisions.</h2>
+        </div>
+
+        <div class="showcase-shell">
+          <div class="game-panel glass-panel">
+            <div class="hud">
+              <div class="brand">RIFT ROYALE</div>
+              <div class="stats">
+                <span id="health">HP: 100</span>
+                <span id="ammo">AMMO: 30</span>
+                <span id="weapon">WEAPON: RIFLE</span>
+                <span id="alive">ALIVE: 0</span>
+              </div>
+            </div>
+
+            <div class="game-wrap">
+              <canvas id="gameCanvas" width="960" height="540"></canvas>
+            </div>
+          </div>
+
+          <aside class="info-stack">
+            <div class="info-card glass-panel">
+              <span class="card-tag">Movement</span>
+              <h3>Fast rotations</h3>
+              <p>WASD + Repositioning mit sauberer Kollision und Zone Pressure.</p>
+            </div>
+            <div class="info-card glass-panel">
+              <span class="card-tag">Combat</span>
+              <h3>Pressure loops</h3>
+              <p>Verteilte Gegner, echte Rückschüsse und mehrfache Waffen-Playstyles.</p>
+            </div>
+            <div class="info-card glass-panel">
+              <span class="card-tag">Loot</span>
+              <h3>Adaptive loadouts</h3>
+              <p>Medkits, Munition, Shields und Boosts beeinflussen den Matchverlauf.</p>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section class="features" id="loadouts">
+        <div class="section-head">
+          <span class="eyebrow">LOADOUTS</span>
+          <h2>Choose your fighting style.</h2>
+        </div>
+
+        <div class="feature-grid">
+          <article class="feature-card glass-panel">
+            <span class="feature-icon">01</span>
+            <h3>Assault</h3>
+            <p>Rifle, DMR und Pulse machen den kontrollierten Mittelstrecken-Fight.</p>
+          </article>
+          <article class="feature-card glass-panel">
+            <span class="feature-icon">02</span>
+            <h3>Close Range</h3>
+            <p>Shotgun und SMG schaffen eine aggressive Nahkampfrunde mit hohem Druck.</p>
+          </article>
+          <article class="feature-card glass-panel">
+            <span class="feature-icon">03</span>
+            <h3>Precision</h3>
+            <p>Sniper und Launcher setzen auf Timing, Platzierung und gezielte Eliminierungen.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="match-cta" id="match">
+        <div class="cta-panel glass-panel">
+          <div>
+            <span class="eyebrow">READY TO DROP</span>
+            <h2>Start the next match and secure the circle.</h2>
+          </div>
+          <button class="primary-btn" id="matchStart">Launch Match</button>
+        </div>
+      </section>
+    </main>
+
+    <div id="loadoutPanel" class="loadout-panel">
+      <button class="loadout-btn active" id="loadout-sword" data-loadout="sword">
+        <span>Schwert</span>
+        <small>Nahe Kämpfe · hoher Schaden</small>
+      </button>
+      <button class="loadout-btn" id="loadout-shield" data-loadout="shield">
+        <span>Schild</span>
+        <small>Defensiv · weniger Schaden</small>
+      </button>
+    </div>
+
+    <div id="weaponSelector" class="weapon-selector" aria-label="Waffen Auswahl"></div>
+
+    <div id="overlay" class="overlay visible">
+      <div class="panel">
+        <span class="tag">PROTOTYP</span>
+        <h1>Battle Royale</h1>
+        <p>WASD bewegen · Maus zielen · Linksklick oder halten zum Schießen · F für Schwertschlag · Q/E für Loadout · 1-7 für Waffen · Zone sichern und alle Gegner eliminieren</p>
+        <button id="startBtn">Spiel starten</button>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
