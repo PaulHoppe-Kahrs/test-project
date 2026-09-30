@@ -1,187 +1,173 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="de">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Battle Royale Mini</title>
+    <meta name="theme-color" content="#080d12" />
+    <title>Rift Royale // Last Circle</title>
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <div class="site-bg">
-      <div class="orb orb-1"></div>
-      <div class="orb orb-2"></div>
-      <div class="orb orb-3"></div>
-      <div class="grid-glow"></div>
-    </div>
-
-    <header class="topbar">
-      <div class="brand-wrap">
-        <span class="brand-mark">R</span>
-        <span>RIFT ROYALE</span>
-      </div>
-      <nav class="main-nav">
-        <a href="#overview">Overview</a>
-        <a href="#systems">Systems</a>
-        <a href="#loadouts">Loadouts</a>
-        <a href="#match">Match</a>
-      </nav>
-      <button class="ghost-btn">Open Match</button>
-    </header>
-
-    <main class="site-page">
-      <section class="hero" id="overview">
-        <div class="hero-copy">
-          <span class="eyebrow">BATTLE PASS 01</span>
-          <h1>Enter the final zone. Own the circle.</h1>
-          <p>
-            Ein hochdynamischer Battle-Royale-Prototyp mit schnellen Loadouts, starken Waffen,
-            klaren Gegnermustern und einem professionell gehackten UI-Design.
-          </p>
-          <div class="cta-row">
-            <button class="primary-btn" id="heroStart">Spiel starten</button>
-            <button class="secondary-btn">Loadouts</button>
-          </div>
-
-          <div class="mini-stats">
-            <div class="mini-card">
-              <strong>7</strong>
-              <span>Waffen</span>
-            </div>
-            <div class="mini-card">
-              <strong>5</strong>
-              <span>Enemy Types</span>
-            </div>
-            <div class="mini-card">
-              <strong>24/7</strong>
-              <span>Zone Fights</span>
-            </div>
-          </div>
+    <div class="app-shell">
+      <header class="topbar">
+        <a class="brand" href="#"
+          ><span class="brand-mark">R</span
+          ><span><b>RIFT</b><small>ROYALE</small></span></a
+        >
+        <div class="match-label">
+          <i></i><span id="matchLabel">LOBBY // STANDBY</span>
         </div>
-
-        <div class="hero-visual glass-panel">
-          <div class="live-badge">LIVE MATCH</div>
-          <div class="visual-grid">
-            <div class="visual-stat">
-              <span>Alive</span>
-              <strong>9</strong>
-            </div>
-            <div class="visual-stat">
-              <span>Threat</span>
-              <strong>High</strong>
-            </div>
-            <div class="visual-stat big">
-              <span>Zone</span>
-              <strong>3.4 KM</strong>
-            </div>
-            <div class="visual-stat accent">
-              <span>Weapon</span>
-              <strong>DMR</strong>
-            </div>
-          </div>
+        <div class="top-actions">
+          <span class="ping"><i></i> 28 MS</span
+          ><button class="icon-button" id="soundBtn" title="Sound umschalten">
+            ◒</button
+          ><button class="icon-button" id="pauseBtn" title="Spiel pausieren">
+            Ⅱ
+          </button>
         </div>
-      </section>
-
-      <section class="showcase" id="systems">
-        <div class="section-head">
-          <span class="eyebrow">CORE SYSTEMS</span>
-          <h2>Built for fast movement and hard decisions.</h2>
-        </div>
-
-        <div class="showcase-shell">
-          <div class="game-panel glass-panel">
-            <div class="hud">
-              <div class="brand">RIFT ROYALE</div>
-              <div class="stats">
-                <span id="health">HP: 100</span>
-                <span id="ammo">AMMO: 30</span>
-                <span id="weapon">WEAPON: RIFLE</span>
-                <span id="alive">ALIVE: 0</span>
+      </header>
+      <main>
+        <section id="lobby" class="lobby-screen">
+          <div class="lobby-copy">
+            <p class="kicker">SEASON 07 <span>//</span> THE LAST CIRCLE</p>
+            <h1>DROP IN.<br /><em>OUTPLAY.</em><br />EXTRACT.</h1>
+            <p class="intro">
+              Ein schneller Top-Down-Battle-Royale-Run. Landen, looten, die Zone
+              lesen und als letzte Legende aus dem Rift gehen.
+            </p>
+            <div class="lobby-actions">
+              <button class="button button-primary" id="startBtn">
+                <span>▶</span> MATCH STARTEN</button
+              ><button class="button button-ghost" id="howBtn">
+                SPIELREGELN <span>↗</span>
+              </button>
+            </div>
+            <div class="lobby-meta">
+              <div>
+                <b>01</b><span>SOLO<br />QUEUE</span>
+              </div>
+              <div>
+                <b>08</b><span>HUNTERS<br />ALIVE</span>
+              </div>
+              <div>
+                <b>06:00</b><span>MAX<br />RUNTIME</span>
               </div>
             </div>
-
-            <div class="game-wrap">
-              <canvas id="gameCanvas" width="960" height="540"></canvas>
-            </div>
           </div>
-
-          <aside class="info-stack">
-            <div class="info-card glass-panel">
-              <span class="card-tag">Movement</span>
-              <h3>Fast rotations</h3>
-              <p>WASD + Repositioning mit sauberer Kollision und Zone Pressure.</p>
+          <div class="lobby-art">
+            <div class="scanline"></div>
+            <div class="art-radar"><span></span><i></i></div>
+            <div class="art-orbit orbit-a"></div>
+            <div class="art-orbit orbit-b"></div>
+            <div class="art-card art-card-top">
+              <small>LIVE DROP // 07</small><b>NEON<br />OUTPOST</b
+              ><span>SECTOR 03-A</span>
             </div>
-            <div class="info-card glass-panel">
-              <span class="card-tag">Combat</span>
-              <h3>Pressure loops</h3>
-              <p>Verteilte Gegner, echte Rückschüsse und mehrfache Waffen-Playstyles.</p>
+            <div class="art-card art-card-bottom">
+              <span class="dot dot-green"></span>
+              <div><small>RIFT SIGNAL</small><b>STABLE</b></div>
+              <strong>98%</strong>
             </div>
-            <div class="info-card glass-panel">
-              <span class="card-tag">Loot</span>
-              <h3>Adaptive loadouts</h3>
-              <p>Medkits, Munition, Shields und Boosts beeinflussen den Matchverlauf.</p>
-            </div>
-          </aside>
-        </div>
-      </section>
-
-      <section class="features" id="loadouts">
-        <div class="section-head">
-          <span class="eyebrow">LOADOUTS</span>
-          <h2>Choose your fighting style.</h2>
-        </div>
-
-        <div class="feature-grid">
-          <article class="feature-card glass-panel">
-            <span class="feature-icon">01</span>
-            <h3>Assault</h3>
-            <p>Rifle, DMR und Pulse machen den kontrollierten Mittelstrecken-Fight.</p>
-          </article>
-          <article class="feature-card glass-panel">
-            <span class="feature-icon">02</span>
-            <h3>Close Range</h3>
-            <p>Shotgun und SMG schaffen eine aggressive Nahkampfrunde mit hohem Druck.</p>
-          </article>
-          <article class="feature-card glass-panel">
-            <span class="feature-icon">03</span>
-            <h3>Precision</h3>
-            <p>Sniper und Launcher setzen auf Timing, Platzierung und gezielte Eliminierungen.</p>
-          </article>
-        </div>
-      </section>
-
-      <section class="match-cta" id="match">
-        <div class="cta-panel glass-panel">
-          <div>
-            <span class="eyebrow">READY TO DROP</span>
-            <h2>Start the next match and secure the circle.</h2>
+            <div class="art-crosshair">+</div>
           </div>
-          <button class="primary-btn" id="matchStart">Launch Match</button>
-        </div>
-      </section>
-    </main>
-
-    <div id="loadoutPanel" class="loadout-panel">
-      <button class="loadout-btn active" id="loadout-sword" data-loadout="sword">
-        <span>Schwert</span>
-        <small>Nahe Kämpfe · hoher Schaden</small>
-      </button>
-      <button class="loadout-btn" id="loadout-shield" data-loadout="shield">
-        <span>Schild</span>
-        <small>Defensiv · weniger Schaden</small>
-      </button>
+        </section>
+        <section id="game" class="game-screen hidden">
+          <div class="game-topline">
+            <span>MISSION // LAST CIRCLE</span><span id="timer">06:00</span
+            ><span id="zoneText">ZONE 01 // 100%</span>
+          </div>
+          <div class="game-layout">
+            <aside class="side-panel left-panel">
+              <div class="panel-heading"><span>OPERATIVE</span><b>R-07</b></div>
+              <div class="player-card">
+                <div class="avatar">R</div>
+                <div><b>RIFT RUNNER</b><span>SOLO OPERATIVE</span></div>
+                <i class="online-dot"></i>
+              </div>
+              <div class="stat-block">
+                <div class="stat-row">
+                  <span>SHIELD</span><b id="shieldValue">100</b>
+                </div>
+                <div class="bar bar-blue"><i id="shieldBar"></i></div>
+                <div class="stat-row">
+                  <span>VITALS</span><b id="healthValue">100</b>
+                </div>
+                <div class="bar bar-green"><i id="healthBar"></i></div>
+              </div>
+              <div class="inventory">
+                <div class="panel-heading">
+                  <span>INVENTORY</span><b id="lootCount">00</b>
+                </div>
+                <div class="inventory-grid">
+                  <div class="item-slot item-active">
+                    <b>MED</b><small>Q</small>
+                  </div>
+                  <div class="item-slot"><b>ARMOR</b><small>E</small></div>
+                  <div class="item-slot"><b>BOOST</b><small>F</small></div>
+                  <div class="item-slot"><b>DROP</b><small>G</small></div>
+                </div>
+              </div>
+              <div class="feed" id="feed">
+                <div>
+                  <i class="feed-dot"></i
+                  ><span>System online. Drop zone secured.</span
+                  ><small>NOW</small>
+                </div>
+              </div>
+            </aside>
+            <div class="arena-wrap">
+              <div class="arena-frame">
+                <canvas id="gameCanvas" width="960" height="600"></canvas>
+                <div class="crosshair-ui"></div>
+                <div class="damage-vignette"></div>
+                <div id="gameMessage" class="game-message hidden"></div>
+              </div>
+              <div class="controls">
+                <span><b>WASD</b> MOVE</span><span><b>MOUSE</b> AIM + FIRE</span
+                ><span><b>1-4</b> WEAPONS</span><span><b>SPACE</b> DODGE</span>
+              </div>
+            </div>
+            <aside class="side-panel right-panel">
+              <div class="panel-heading">
+                <span>ZONE STATUS</span><b id="zonePhase">01</b>
+              </div>
+              <div class="mini-map">
+                <canvas id="mapCanvas" width="180" height="180"></canvas
+                ><span class="map-label">SECTOR 03-A</span>
+              </div>
+              <div class="zone-readout">
+                <span>COLLAPSE IN</span><b id="zoneTimer">00:42</b
+                ><small>Stay inside the marked circle</small>
+              </div>
+              <div class="panel-heading weapon-heading">
+                <span>LOADOUT</span><b id="ammoValue">24 / ∞</b>
+              </div>
+              <div class="weapon-list" id="weaponList"></div>
+              <button class="button button-small" id="reloadBtn">
+                ↻ RELOAD <small>R</small>
+              </button>
+            </aside>
+          </div>
+        </section>
+      </main>
     </div>
-
-    <div id="weaponSelector" class="weapon-selector" aria-label="Waffen Auswahl"></div>
-
-    <div id="overlay" class="overlay visible">
-      <div class="panel">
-        <span class="tag">PROTOTYP</span>
-        <h1>Battle Royale</h1>
-        <p>WASD bewegen · Maus zielen · Linksklick oder halten zum Schießen · F für Schwertschlag · Q/E für Loadout · 1-7 für Waffen · Zone sichern und alle Gegner eliminieren</p>
-        <button id="startBtn">Spiel starten</button>
+    <div id="modal" class="modal hidden">
+      <div class="modal-card">
+        <button class="modal-close" id="modalClose">×</button>
+        <p class="kicker">FIELD MANUAL</p>
+        <h2>Survive the <em>circle.</em></h2>
+        <p>
+          Bewege dich mit WASD, ziele mit der Maus und feuere per Linksklick.
+          Sammle Loot, wechsle mit 1-4 die Waffen und bleib innerhalb der Zone.
+          Die Zone wird kleiner. Space löst einen kurzen Dash aus.
+        </p>
+        <div class="rule-grid">
+          <span><b>01</b> Loot einsammeln</span
+          ><span><b>02</b> Gegner ausschalten</span
+          ><span><b>03</b> Zone halten</span><span><b>04</b> Extrahieren</span>
+        </div>
       </div>
     </div>
-
     <script src="script.js"></script>
   </body>
 </html>
