@@ -1,0 +1,262 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+:root {
+  --color1: #0d1f2d;
+  --color2: #546a7b;
+  --color3: #9ea3b0;
+  --color4: #fae1df;
+  --color5: #e4c3ad;
+  --black: #040c13;
+}
+@font-face {
+  font-family: Mallanna;
+  src: url("./src/fonts/Mallanna-Regular.ttf") format("truetype");
+}
+@font-face {
+  font-family: Marker;
+  src: url("./src/fonts/PermanentMarker-Regular.ttf") format("truetype");
+}
+h1 {
+  font: 2.027rem Marker;
+}
+h2 {
+  font: 1.802rem Marker;
+}
+h5 {
+  font-size: 1.266rem;
+  font-weight: 400;
+}
+p {
+  font-size: 1rem;
+}
+small {
+  font-size: 0.79rem;
+}
+.container {
+  padding: 0 15px;
+  margin: 0 auto;
+}
+body {
+  background: var(--color1);
+  color: var(--color4);
+  font-family: Mallanna, sans-serif;
+}
+body > .container {
+  min-height: 100vh;
+}
+header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 4rem;
+  gap: 2rem;
+}
+.profile-img-container {
+  display: flex;
+  justify-content: center;
+}
+.profile-mark {
+  width: 7rem;
+  height: 7rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 3px solid var(--color2);
+  border-radius: 50%;
+  background: var(--color5);
+  color: var(--color1);
+  font: 700 2rem Marker;
+  letter-spacing: -0.12rem;
+  box-shadow:
+    12px 12px 28px #09151f,
+    -12px -12px 28px #11293b;
+}
+.textcontainer {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.textcontainer p {
+  color: var(--color3);
+}
+.icon-container {
+  display: flex;
+  gap: 2rem;
+}
+.social-icon {
+  width: 2.25rem;
+  height: 2.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--color2);
+  border-radius: 50%;
+  color: var(--color4);
+  cursor: pointer;
+  font: 0.7rem monospace;
+  transition: 0.1s;
+  box-shadow:
+    20px 20px 47px #09151f,
+    -20px -20px 47px #11293b;
+}
+.social-icon:hover {
+  transform: scale(1.1);
+  border-bottom: 2px solid var(--color5);
+  background: var(--color2);
+}
+.social-icon:active {
+  box-shadow: none;
+  transform: scale(1);
+}
+.instagram-icon {
+  border-radius: 0.7rem;
+}
+.linkedin-icon {
+  font-weight: 700;
+}
+.video-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: var(--color3);
+  padding: 4rem;
+  gap: 1rem;
+}
+.video-section .text-container .h2 {
+  font: 1.802rem Marker;
+  color: var(--color4);
+}
+.video-section .text-container h5,
+.video-section .text-container p {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+.video-container {
+  width: 100%;
+}
+.video-container video {
+  width: 100%;
+  display: block;
+}
+.link-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 4rem 4rem 8rem;
+  gap: 2rem;
+}
+.link-content {
+  width: 100%;
+}
+.link-content a {
+  color: var(--color1);
+  text-decoration: none;
+}
+.link-container {
+  background: var(--color3);
+  padding: 2rem;
+  width: 100%;
+  border-radius: 1.25rem;
+  box-shadow:
+    20px 20px 47px #09151f,
+    -20px -20px 47px #11293b;
+  cursor: pointer;
+  transition: 0.4s;
+}
+.link-container:hover {
+  transform: scale(1.01);
+  background: var(--color4);
+}
+.link-container:active {
+  background: var(--color2);
+}
+footer {
+  display: flex;
+  flex-direction: column;
+  background: var(--black);
+  color: var(--color2);
+  padding: 2rem;
+  gap: 1rem;
+}
+.footer-links {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.footer-mark {
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--color5);
+  color: var(--color1);
+  font: 700 0.65rem monospace;
+}
+.links {
+  display: flex;
+  gap: 1rem;
+}
+.links a {
+  color: var(--color2);
+}
+.links a:hover {
+  color: var(--color4);
+}
+@media (min-width: 768px) {
+  html {
+    font-size: 1.1rem;
+  }
+  .container {
+    width: 85%;
+  }
+}
+@media (min-width: 870px) {
+  .container {
+    width: 80%;
+  }
+}
+@media (min-width: 992px) {
+  html {
+    font-size: 1.125rem;
+  }
+  .container {
+    width: 65%;
+  }
+}
+@media (min-width: 1200px) {
+  html {
+    font-size: 1.15rem;
+  }
+  .container {
+    width: 60%;
+  }
+}
+@media (min-width: 1400px) {
+  html {
+    font-size: 1.2rem;
+  }
+  .container {
+    width: 55%;
+  }
+}
+@media (min-width: 1920px) {
+  html {
+    font-size: 1.2rem;
+  }
+  .container {
+    width: 45%;
+  }
+}
