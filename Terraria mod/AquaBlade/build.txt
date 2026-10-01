@@ -1,0 +1,4 @@
+displayName = Prismedge
+author = Local Mod
+version = 0.1
+side = Both

@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "7nB/9hp2TiM=",
+  "success": true,
+  "projectFilePath": "/home/paul/test-project/Terraria mod/AquaBlade/AquaBlade.csproj",
+  "expectedPackageFiles": [
+    "/home/paul/.nuget/packages/microsoft.netcore.app.ref/8.0.31/microsoft.netcore.app.ref.8.0.31.nupkg.sha512",
+    "/home/paul/.nuget/packages/microsoft.aspnetcore.app.ref/8.0.31/microsoft.aspnetcore.app.ref.8.0.31.nupkg.sha512"
+  ],
+  "logs": []
+}
